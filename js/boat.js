@@ -1,23 +1,30 @@
 var initialBoatBottom = 0;
 
-function positionElements() {
+function setContainerHeight() {
 	// set up scrolling
 	$('body').height($(window).height() * 3);
 	$('#container').height($(window).height());
-	
+}
+
+function positionBoat() {
 	// position boat
 	initialBoatBottom = $(window).height() - $('#wave3').position().top - 20;
 	$('#boat').css('bottom', initialBoatBottom);
 }
 
-// after the last wave loads, position the boat and the container
-$(document).on('load', '#wave3', function () {
-	positionElements();
+$(document).ready(function () {
+	setContainerHeight();
+	
+	// after the last wave loads, position the boat
+	$('#wave3').on('load', function () {
+		positionBoat();
+	});
 });
 
 // reposition everything when the window is resized
 $(window).on('resize', function () {
-	positionElements();
+	setContainerHeight();
+	positionBoat();
 });
 
 $(window).on('scroll', function () {
